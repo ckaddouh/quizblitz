@@ -1,1 +1,63 @@
-No AI used. 
+PROMPT: Write a Vue 3 single-file component called StartScreen. It should display a
+heading that says 'QuizBlitz', a short tagline, and a button labelled 'Play'. When the
+button is clicked, it emits an event called 'start'. Use the Options API (not
+Composition API). No props needed.
+RESPONSE: StartScreen.vue with a template containing h1, p, and button. Button uses
+@click="$emit('start')". Script declares emits: ['start']. No props.
+WHAT I USED / CHANGED: Used the full component as provided. Saved to src/components/StartScreen.vue.
+
+
+PROMPT: Write a Vue 3 single-file component called ScoreBoard. It receives a prop
+called `score` (Number). It displays a heading 'Game Over', the player's score out of
+10, and a 'Play Again' button. When Play Again is clicked, it emits 'restart'. Use the
+Options API.
+RESPONSE: ScoreBoard.vue with score prop, Game Over heading, "You scored X out of 10"
+paragraph, and Play Again button emitting 'restart'. Includes emits: ['restart'] and
+props: { score: { type: Number, required: true } }.
+WHAT I USED / CHANGED: Used the full component as provided. Saved to src/components/ScoreBoard.vue.
+
+
+PROMPT: I'm building a Vue 3 quiz game using Vite and the Options API. Write a
+single-file component called QuestionCard. It receives one prop called `question`
+shaped like { question: String, answers: Array, correct: Number }. The template should
+display the question text and render four answer buttons using v-for. When a button is
+clicked: disable all buttons immediately, apply a green CSS class to the correct answer
+button and a red class to the clicked button if it was wrong, wait 1 second using
+setTimeout, then emit an event called 'answer' with the value true if the answer was
+correct or false if it was wrong. Reset the highlight state after emitting. Do not use
+TypeScript.
+RESPONSE: QuestionCard.vue with v-for buttons, selectAnswer method, getAnswerClass
+method, setTimeout of 1000ms, and $emit('answer', isCorrect). Data properties: selected and answered.
+WHAT I USED / CHANGED: Used the full component. Added a <style> block separately
+after noticing correct/wrong classes had no CSS rules.
+
+
+PROMPT: (no prompt — manual fix) Added <style scoped> block to QuestionCard.vue after
+answers were not highlighting. Added button.correct { background-color: green } and
+button.wrong { background-color: red }.
+RESPONSE: No AI used.
+WHAT I USED / CHANGED: Wrote the CSS manually based on class names already in the component.
+
+
+PROMPT: (no prompt — manual fix) App.vue was missing imports for QuestionCard and
+ScoreBoard, missing data(), and missing methods. Fixed by adding all imports, data
+with gameState/currentIndex/score/questions, and methods startGame/handleAnswer/resetGame.
+RESPONSE: No AI used.
+WHAT I USED / CHANGED: Rewrote App.vue manually using the structure explained in the chat.
+
+
+
+PROMPT: Reformat these questions to match this shape: { question: String, answers:
+[String, String, String, String], correct: Number } where correct is the index of the
+right answer.
+RESPONSE: 10 European capitals questions reformatted as plain string arrays with a
+numeric correct index. Example: { question: "What is the capital of France?", answers:
+["Berlin", "Madrid", "Paris", "Rome"], correct: 2 }
+WHAT I USED / CHANGED: Replaced all questions in App.vue data() with the reformatted versions.
+
+
+PROMPT: Add a question counter below the QuestionCard that shows "Question 3 of 10".
+This should be a computed property or a simple expression in the template.
+RESPONSE: Added <p v-if="gameState === 'playing'">Question {{ currentIndex + 1 }} of
+{{ questions.length }}</p> directly below the QuestionCard in App.vue template.
+WHAT I USED / CHANGED: Used the expression as provided. No computed property needed.

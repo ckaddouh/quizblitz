@@ -10,6 +10,7 @@
       :question="questions[currentIndex]"
       @answer="handleAnswer"
     />
+    <p v-if="gameState === 'playing'">Question {{ currentIndex + 1 }} of {{ questions.length }}</p>
     <ScoreBoard
       v-if="gameState === 'end'"
       :score="score"

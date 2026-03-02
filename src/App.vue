@@ -33,53 +33,53 @@ export default {
       score: 0,
       questions: [
         {
-          question: "What does CSS stand for?",
-          answers: ["Cascading Style Sheets", "Creative Style System", "Computer Style Syntax", "Coloured Screen Sheets"],
-          correct: 0
-        },
-        {
-          question: "Which HTML tag is used for JavaScript?",
-          answers: ["<js>", "<javascript>", "<script>", "<code>"],
+          question: "What is the capital of France?",
+          answers: ["Berlin", "Madrid", "Paris", "Rome"],
           correct: 2
         },
         {
-          question: "What does HTML stand for?",
-          answers: ["Hyper Text Markup Language", "Hyper Transfer Markup Level", "High Text Markup Language", "Hyper Text Making Language"],
-          correct: 0
-        },
-        {
-          question: "Which symbol is used for comments in JavaScript?",
-          answers: ["<!-- -->", "** **", "// or /* */", "## ##"],
-          correct: 2
-        },
-        {
-          question: "How do you declare a variable in JavaScript?",
-          answers: ["variable x", "v x", "let x", "dim x"],
-          correct: 2
-        },
-        {
-          question: "Which Vue directive conditionally renders an element?",
-          answers: ["v-show-if", "v-render", "v-if", "v-condition"],
-          correct: 2
-        },
-        {
-          question: "What does 'v-bind' do in Vue?",
-          answers: ["Handles click events", "Binds data to an attribute", "Creates a loop", "Imports a component"],
-          correct: 1
-        },
-        {
-          question: "How do you write an array in JavaScript?",
-          answers: ["var x = (1, 2, 3)", "var x = {1, 2, 3}", "var x = [1, 2, 3]", "var x = <1, 2, 3>"],
-          correct: 2
-        },
-        {
-          question: "What is the correct way to show a Vue component?",
-          answers: ["<import Component />", "<use Component />", "<render Component />", "<Component />"],
+          question: "What is the capital of Germany?",
+          answers: ["Munich", "Hamburg", "Frankfurt", "Berlin"],
           correct: 3
         },
         {
-          question: "Which method is called when a Vue component is first added to the DOM?",
-          answers: ["created()", "mounted()", "started()", "init()"],
+          question: "What is the capital of Spain?",
+          answers: ["Barcelona", "Madrid", "Seville", "Valencia"],
+          correct: 1
+        },
+        {
+          question: "What is the capital of Italy?",
+          answers: ["Milan", "Naples", "Rome", "Turin"],
+          correct: 2
+        },
+        {
+          question: "What is the capital of Portugal?",
+          answers: ["Porto", "Lisbon", "Faro", "Braga"],
+          correct: 1
+        },
+        {
+          question: "What is the capital of the Netherlands?",
+          answers: ["Rotterdam", "Utrecht", "Amsterdam", "The Hague"],
+          correct: 2
+        },
+        {
+          question: "What is the capital of Belgium?",
+          answers: ["Antwerp", "Brussels", "Ghent", "Liege"],
+          correct: 1
+        },
+        {
+          question: "What is the capital of Switzerland?",
+          answers: ["Zurich", "Geneva", "Basel", "Bern"],
+          correct: 3
+        },
+        {
+          question: "What is the capital of Austria?",
+          answers: ["Salzburg", "Graz", "Vienna", "Innsbruck"],
+          correct: 2
+        },
+        {
+          question: "What is the capital of Poland?",
+          answers: ["Krakow", "Warsaw", "Gdansk", "Wroclaw"],
           correct: 1
         }
       ]

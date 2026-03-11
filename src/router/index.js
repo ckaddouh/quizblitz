@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useGameStore } from '../stores/gameStore.js'
 import HomeView from '../views/HomeView.vue'
 import PlayView from '../views/PlayView.vue'
 import LeaderboardView from '../views/LeaderboardView.vue'
@@ -11,12 +10,13 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   if (to.name === 'play') {
+    const { useGameStore } = await import('../stores/gameStore.js')
     const store = useGameStore()
     if (store.gameState !== 'playing') {
       return { name: 'home' }

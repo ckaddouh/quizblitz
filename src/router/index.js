@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PlayView from '../views/PlayView.vue'
 import LeaderboardView from '../views/LeaderboardView.vue'
+import { useGameStore } from '../stores/gameStore.js'
+
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -15,11 +17,13 @@ const router = createRouter({
 })
 
 // TODO Week 7: replace sessionStorage check with store.gameStarted
-router.beforeEach((to, from) => {
-    if (to.name === 'play' && sessionStorage.getItem('gameStarted') !== 'true') {
-      return { name: 'home' }
-    }
-  })
+
+router.beforeEach((to) => {
+  const store = useGameStore()
+  if (to.name === 'play' && store.gameState !== 'playing') {
+    return { name: 'home' }
+  }
+})
   
 export default router
   

@@ -31,6 +31,12 @@
       @restart="handleRestart"
     />
 
+    <!-- Not started yet — redirect to home -->
+    <div v-else>
+      <p>No game in progress.</p>
+      <button @click="$router.push({ name: 'home' })">Go Home</button>
+    </div>
+
   </div>
 </template>
 
@@ -46,6 +52,11 @@ export default {
   setup() {
     const store = useGameStore()
     return { store }
+  },
+  mounted() {
+    if (this.store.gameState !== 'playing') {
+      this.$router.push({ name: 'home' })
+    }
   },
 
   computed: {

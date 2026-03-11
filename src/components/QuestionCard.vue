@@ -1,59 +1,48 @@
 <template>
-    <div class="question-card">
-      <h2>{{ question.question }}</h2>
-      <div class="answers">
-        <button
-          v-for="(answer, index) in question.answers"
-          :key="index"
-          :class="getAnswerClass(index)"
-          :disabled="answered"
-          @click="selectAnswer(index)"
-        >
-          {{ answer }}
-        </button>
-      </div>
+  <div class="question-card">
+    <h2>{{ question.question }}</h2>
+    <div class="answers">
+      <button
+        v-for="(answer, index) in question.answers"
+        :key="index"
+        :class="buttonClass(index)"
+        :disabled="selectedAnswer !== null"
+        @click="handleClick(index)"
+      >
+        {{ answer }}
+      </button>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
-  export default {
-    name: 'QuestionCard',
-    props: {
-      question: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'QuestionCard',
+  props: {
+    question: {
+      type: Object,
+      required: true
     },
-    emits: ['answer'],
-    data() {
-      return {
-        selected: null,
-        answered: false
-      }
+    selectedAnswer: {
+      type: Number,
+      default: null
+    }
+  },
+  emits: ['answer'],
+  methods: {
+    handleClick(index) {
+      if (this.selectedAnswer !== null) return
+      this.$emit('answer', index)
     },
-    methods: {
-      selectAnswer(index) {
-        if (this.answered) return
-        this.answered = true
-        this.selected = index
-  
-        const isCorrect = index === this.question.correct
-  
-        setTimeout(() => {
-          this.$emit('answer', isCorrect)
-          this.selected = null
-          this.answered = false
-        }, 1000)
-      },
-      getAnswerClass(index) {
-        if (!this.answered) return ''
-        if (index === this.question.correct) return 'correct'
-        if (index === this.selected) return 'wrong'
-        return ''
-      }
+    buttonClass(index) {
+      if (this.selectedAnswer === null) return ''
+      if (index === this.question.correct) return 'correct'
+      if (index === this.selectedAnswer) return 'wrong'
+      return ''
     }
   }
-  </script>
+}
+</script>
 
 
 <style scoped>
@@ -65,5 +54,10 @@ button.correct {
 button.wrong {
   background-color: red;
   color: white;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 </style>

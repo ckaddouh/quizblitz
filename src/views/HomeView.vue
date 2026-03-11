@@ -24,6 +24,7 @@
   </div>
 </template>
 
+<!-- used wrong commit message previously -->
 <script>
 import { useGameStore } from '../stores/gameStore.js'
 

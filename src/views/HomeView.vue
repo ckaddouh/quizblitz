@@ -36,8 +36,8 @@ export default {
   },
 
   methods: {
-    startGame() {
-      this.store.startGame()
+    async startGame() {
+      await this.store.startGame()
       this.$router.push({ name: 'play' })
     }
   }

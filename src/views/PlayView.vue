@@ -10,54 +10,63 @@
       ></div>
     </div>
 
-    <!-- Progress indicator -->
-    <p class="progress">
-      Question {{ store.progress.current }} of {{ store.progress.total }}
-    </p>
+    <div class="play-content">
 
-    <p v-if="store.streak >= 3" class="streak">
-      🔥 {{ store.streak }} in a row!
-    </p>
+      <!-- Progress indicator -->
+      <p class="progress">
+        Question {{ store.progress.current }} of {{ store.progress.total }}
+      </p>
 
-    <!-- Question -->
-    <QuestionCard
-      v-if="store.gameState === 'playing' && store.currentQuestion"
-      :question="store.currentQuestion"
-      :selectedAnswer="store.selectedAnswer"
-      @answer="store.submitAnswer"
-    />
+      <p v-if="store.streak >= 3" class="streak">
+        🔥 {{ store.streak }} in a row!
+      </p>
 
-    <!-- Score screen -->
-    <div v-else-if="store.gameState === 'end'">
-      <ScoreBoard
-        :score="store.score"
-        :total="store.questions.length"
-        @restart="handleRestart"
+      <!-- Question -->
+      <QuestionCard
+        v-if="store.gameState === 'playing' && store.currentQuestion"
+        :question="store.currentQuestion"
+        :selectedAnswer="store.selectedAnswer"
+        @answer="store.submitAnswer"
       />
 
-      <div class="submit-score">
-        <div v-if="!store.scoreSubmitted">
-          <input
-            v-model="store.playerName"
-            placeholder="Enter your name"
-            class="name-input"
-          />
-          <button @click="store.submitScore()" class="submit-btn">
-            Submit Score
-          </button>
+      <!-- End screen -->
+      <div v-else-if="store.gameState === 'end'" class="end-screen">
+        <ScoreBoard
+          :score="store.score"
+          :total="store.questions.length"
+          @restart="handleRestart"
+        />
+
+        <div class="submit-score">
+          <div v-if="store.token">
+            <p class="playing-as">Playing as {{ store.userEmail }}</p>
+            <button
+              v-if="!store.scoreSubmitted"
+              class="submit-btn"
+              @click="store.submitScore()"
+            >
+              Submit Score
+            </button>
+            <p v-else class="submitted-msg">Score submitted ✓</p>
+          </div>
+
+          <div v-else>
+            <p class="login-prompt">
+              <RouterLink to="/login">Log in</RouterLink> to save your score to the leaderboard.
+            </p>
+          </div>
         </div>
-        <p v-else class="submitted-msg">Score submitted! ✓</p>
+
+        <button class="restart-btn" @click="handleRestart">Play Again</button>
       </div>
 
-      <button class="restart-btn" @click="handleRestart">Play Again</button>
-    </div>
+      <!-- Not started yet — redirect to home -->
+      <div v-else>
+        <p>No game in progress.</p>
+        <button @click="$router.push({ name: 'home' })">Go Home</button>
+      </div>
 
-    <!-- Not started yet — redirect to home -->
-    <div v-else>
-      <p>No game in progress.</p>
-      <button @click="$router.push({ name: 'home' })">Go Home</button>
     </div>
-
   </div>
 </template>
 
@@ -97,13 +106,18 @@ export default {
 </script>
 
 <style scoped>
+.play-view {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 57px);
+}
+
 .timer-bar {
   width: 100%;
   height: 8px;
   background: #333;
-  border-radius: 4px;
-  margin-bottom: 1rem;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .timer-fill {
@@ -116,10 +130,38 @@ export default {
   background: #e53935;
 }
 
+.play-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
 .progress {
   text-align: center;
   color: #aaa;
   margin-bottom: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.streak {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #f5c518;
+}
+
+.end-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .submit-score {
@@ -127,32 +169,24 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-.name-input {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #555;
-  background: #1e1e1e;
-  color: #fff;
-  font-size: 1rem;
-  width: 220px;
   text-align: center;
 }
 
-.name-input::placeholder {
-  color: #888;
+.playing-as {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .submit-btn {
-  padding: 0.5rem 1.5rem;
+  padding: 0.65rem 2rem;
   background: #4caf50;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .submit-btn:hover {
@@ -164,16 +198,29 @@ export default {
   font-weight: bold;
 }
 
+.login-prompt {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.login-prompt a {
+  color: #f5c518;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
 .restart-btn {
-  display: block;
-  margin: 1rem auto 0;
-  padding: 0.5rem 1.5rem;
+  padding: 0.65rem 2rem;
   background: #1565c0;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .restart-btn:hover {

@@ -2,3 +2,7 @@
 
 
 **\[Claude Opus 4.1]** Rewrite HomeView.vue to make it look nicer and introduce the name of the game: QuizBlitz. 
+
+**\[Claude Opus 4.1]** Create LoginView.vue and RegisterView.vue. Each needs a simple form with email and password fields that call store.login() or store.register() and redirect to / on success.
+
+**\[Claude Opus 4.1]** Also add links to these pages in the nav bar of the App.vue page. 

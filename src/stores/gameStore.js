@@ -58,7 +58,7 @@ export const useGameStore = defineStore('game', {
         }
       },
       async startGame() {
-        const response = await fetch('http://localhost:3000/api/questions/random')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/random`)
         const questions = await response.json()
         this.questions = questions
         this.currentIndex = 0
